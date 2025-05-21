@@ -1,8 +1,10 @@
 from django.db import models
 import json
+from var_dump import var_dump
 
 # Create your models here.
-class CurrentWeather(models.Model):
+
+class CurrentWeather(DataModel):
     latitude = models.FloatField()
     longitude = models.FloatField()
     currentUnits = models.CharField()

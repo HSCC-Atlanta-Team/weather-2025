@@ -1,0 +1,22 @@
+from django.db import models
+import json
+from var_dump import var_dump
+
+class BaseModel(models.Model):
+    def hydrate(self, data):
+        fields = {field.name for field in self._meta.fields}
+        for key, value in data.items():
+            if key in fields:
+                if isinstance(value, (dict, list)):
+                    # Convert dicts and lists to JSON strings
+                    setattr(self, key, json.dumps(value))
+                else:
+                    try:
+                        json.dumps(value)  # Check if serializable
+                        setattr(self, key, value)
+                    except TypeError:
+                        # Fallback: Convert non-serializable objects to string
+                        setattr(self, key, str(value))
+
+    class Meta:
+        abstract = True  # Ensures this model doesn't create its own table
