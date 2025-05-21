@@ -4,7 +4,9 @@ from var_dump import var_dump
 
 class BaseModel(models.Model):
     def hydrate(self, data):
+        # this "just works": get all fields from our CHILD model
         fields = {field.name for field in self._meta.fields}
+
         for key, value in data.items():
             if key in fields:
                 if isinstance(value, (dict, list)):

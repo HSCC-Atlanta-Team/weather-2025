@@ -15,7 +15,6 @@ def weather(request):
 
     new_record = CurrentWeather()
     new_record.hydrate(data);
-    var_dump(new_record);
-    # new_record.save()
+    new_record.save()
 
     return render(request, 'current_weather.html', {'weather': new_record})
