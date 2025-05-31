@@ -20,5 +20,12 @@ class BaseModel(models.Model):
                         # Fallback: Convert non-serializable objects to string
                         setattr(self, key, str(value))
 
+    @classmethod
+    def fromApi(cls, data):
+        book = cls()
+        book.hydrate(data)
+
+        return book
+
     class Meta:
         abstract = True  # Ensures this model doesn't create its own table

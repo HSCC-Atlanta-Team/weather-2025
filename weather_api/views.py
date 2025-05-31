@@ -13,8 +13,6 @@ def weather(request):
     response = requests.get(uri)
     data = response.json()    
 
-    new_record = CurrentWeather()
-    new_record.hydrate(data);
-    new_record.save()
+    new_record = CurrentWeather.fromApi(data)
 
     return render(request, 'current_weather.html', {'weather': new_record})
