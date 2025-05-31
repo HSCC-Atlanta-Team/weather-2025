@@ -9,6 +9,8 @@ class WeatherRepository:
 
     def get_current_weather(self, options=None):
         url = f"{self.base_url}/weather"
+        options = options or {}
+
         try:
             # Inject our API key here
             options['APPID'] = os.getenv("API_KEY", default="")
@@ -17,8 +19,8 @@ class WeatherRepository:
 
             response = requests.get(url, params=options or {})
             response.raise_for_status()
-            data = response.json()
 
+            data = response.json()
             return Weather.fromApi(data)
 
         except requests.RequestException as e:

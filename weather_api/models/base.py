@@ -4,21 +4,18 @@ from var_dump import var_dump
 
 class BaseModel(models.Model):
     def hydrate(self, data):
-        # this "just works": get all fields from our CHILD model
-        fields = {field.name for field in self._meta.fields}
+        fields = {field.name: field for field in self._meta.fields}
 
         for key, value in data.items():
             if key in fields:
-                if isinstance(value, (dict, list)):
-                    # Convert dicts and lists to JSON strings
-                    setattr(self, key, json.dumps(value))
-                else:
+                field = fields[key]
+                if isinstance(field, models.JSONField):
                     try:
-                        json.dumps(value)  # Check if serializable
                         setattr(self, key, value)
                     except TypeError:
-                        # Fallback: Convert non-serializable objects to string
-                        setattr(self, key, str(value))
+                        setattr(self, key, {})  # or {} as fallback
+                else:
+                    setattr(self, key, value)
 
     @classmethod
     def fromApi(cls, data):

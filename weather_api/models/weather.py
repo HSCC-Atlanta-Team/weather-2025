@@ -15,3 +15,7 @@ class Weather(BaseModel):
     timezone = models.CharField()
     name = models.CharField()
     cod = models.IntegerField()
+
+    def getTemp(self):
+        temp = self.main.get('temp')
+        return f"{temp}°F" if temp is not None else "N/A"
