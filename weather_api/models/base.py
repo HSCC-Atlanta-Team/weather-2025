@@ -19,6 +19,9 @@ class BaseModel(models.Model):
 
     @classmethod
     def fromApi(cls, data):
+        if "id" in data:
+            del data["id"]
+
         model = cls()
         model.hydrate(data)
 

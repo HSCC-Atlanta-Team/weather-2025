@@ -2,22 +2,15 @@ import requests
 import os
 from weather_api.models import Weather
 from var_dump import var_dump
+from .repository import Repository
 
-class WeatherRepository:
-    def __init__(self, base_url=None):
-        self.base_url = base_url or os.getenv("API_BASE_URL", default="")
-
+class WeatherRepository(Repository):
     def get_current_weather(self, options=None):
         url = f"{self.base_url}/weather"
-        options = options or {}
+        self.setOptions(options)
 
         try:
-            # Inject our API key here
-            options['APPID'] = os.getenv("API_KEY", default="")
-            # Apply our units setting
-            options['units'] = os.getenv("API_UNITS", default="")
-
-            response = requests.get(url, params=options or {})
+            response = requests.get(url, params=self.options)
             response.raise_for_status()
 
             data = response.json()
@@ -26,3 +19,6 @@ class WeatherRepository:
         except requests.RequestException as e:
             print(f"Weather API error: {e}")
             return None
+
+    def create_forecast(self, forcast):
+        requests.request('get')
