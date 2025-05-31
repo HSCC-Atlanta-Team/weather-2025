@@ -12,6 +12,13 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 import os
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
+
+# Get the ALLOWED_HOST from .env
+host = os.getenv("ALLOWED_HOST", default="")
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,9 +34,8 @@ SECRET_KEY = 'django-insecure-!4%md#%mp(ahs$n-$sr*7y$&d*#-a#$v4yb5qqd6hnw-c*-kle
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    '8000--main--weather-1--jkohns--sm84nje0g0jls.pit-1.try.coder.app',
+    host,
 ]
-
 
 # Application definition
 

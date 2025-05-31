@@ -1,2 +1,3 @@
 requests
 var_dump
+python-dotenv

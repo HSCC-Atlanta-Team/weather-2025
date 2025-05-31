@@ -1,1 +1,2 @@
-from .models import CurrentWeather
+from .current_weather import CurrentWeather
+from .weather import Weather

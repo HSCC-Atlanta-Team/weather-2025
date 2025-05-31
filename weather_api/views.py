@@ -6,6 +6,7 @@ from var_dump import var_dump
 from weather_api.models import CurrentWeather
 import json
 import sys
+from .repository.weather_repository import WeatherRepository
 
 # Create your views here.
 def weather(request):
@@ -16,3 +17,20 @@ def weather(request):
     new_record = CurrentWeather.fromApi(data)
 
     return render(request, 'current_weather.html', {'weather': new_record})
+
+def new_weather(request):
+    repo = WeatherRepository()
+    
+    # parse query parameters: ?city=atlanta
+    options = request.GET.dict()
+    
+    current_weather = repo.get_current_weather(options=options)
+
+    if current_weather is None:
+        return HttpResponse("Failed to fetch weather data.", status=500)
+
+    var_dump(current_weather)
+    current_weather.save()
+
+    return HttpResponse("ok")
+    # return render(request, 'current_weather.html', {'weather': current_weather})

@@ -22,10 +22,10 @@ class BaseModel(models.Model):
 
     @classmethod
     def fromApi(cls, data):
-        book = cls()
-        book.hydrate(data)
+        model = cls()
+        model.hydrate(data)
 
-        return book
+        return model
 
     class Meta:
         abstract = True  # Ensures this model doesn't create its own table
