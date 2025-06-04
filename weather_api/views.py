@@ -25,4 +25,4 @@ def weather(request):
     # var_dump(current_weather)
     current_weather.save()
 
-    return render(request, 'weather.html', {'weather': current_weather})
+    return render(request, 'weather_grid.html', {'weather': current_weather})
