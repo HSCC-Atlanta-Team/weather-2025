@@ -19,3 +19,6 @@ class Weather(BaseModel):
     def getTemp(self):
         temp = self.main.get('temp')
         return f"{temp}°F" if temp is not None else "N/A"
+
+    def getWind(self):
+        return f"{self.wind.speed} {self.wind.degrees}"

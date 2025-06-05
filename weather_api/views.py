@@ -10,8 +10,10 @@ from .repository.weather_repository import WeatherRepository
 
 # Create your views here.
 def weather(request):
+    return render(request, 'weather_grid.html')
+
+def weather_card(request):
     repo = WeatherRepository()
-    
     # parse query parameters: ?q=atlanta
     options = request.GET.dict()
     if 'q' not in options:
@@ -22,7 +24,9 @@ def weather(request):
     if current_weather is None:
         return HttpResponse("Failed to fetch weather data.", status=500)
 
-    # var_dump(current_weather)
-    current_weather.save()
+    city = request.GET.get('city')
+    weather_icon = 'clear-day'
+    return render(request, 'weather_card.html', {'city': options['q'], 'current_weather': current_weather, 'weather_icon': weather_icon})
 
-    return render(request, 'weather_grid.html', {'weather': current_weather})
+def weather_icon(request):
+    return HttpResponse('this is an icon')

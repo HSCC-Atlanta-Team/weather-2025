@@ -6,16 +6,32 @@
 <div class="container mt-4">
     <div class="row">
         <div class="col">
-            {% include 'weather_card.html' with city='Atlanta' %}
+            <div
+                hx-get="/weather-card?q=Atlanta"
+                hx-trigger="load"
+                hx-swap="innerHTML">
+            </div>
         </div>
         <div class="col">
-            {% include 'weather_card.html' with city='New York' %}
+            <div
+                hx-get="/weather-card?q=Seattle"
+                hx-trigger="load"
+                hx-swap="innerHTML">
+            </div>
         </div>
         <div class="col">
-            {% include 'weather_card.html' with city='Seattle' %}
+            <div
+                hx-get="/weather-card?q=New+York"
+                hx-trigger="load"
+                hx-swap="innerHTML">
+            </div>
         </div>
         <div class="col">
-            {% include 'weather_card.html' with city='Miami' %}
+            <div
+                hx-get="/weather-card?q=Miami"
+                hx-trigger="load"
+                hx-swap="innerHTML">
+            </div>
         </div>
     </div>
 

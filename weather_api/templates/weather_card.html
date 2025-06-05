@@ -1,15 +1,15 @@
 {% load static %}
 
 <div class="card" style="width: 18rem;">
-  <img src="{% static 'icons/cloudy.svg' %}" class="card-img-top" alt="Cloudy">
+  <img src="{% static 'icons/'|add:weather_icon|add:'.svg' %}" alt="{{ weather_icon }}" class="card-img-top">
   <div class="card-body">
     <h5 class="card-title">{{ city }} Weather</h5>
     <p class="card-text">
         <ul class="list-group">
-            <li class="list-group-item">Current Temp: 99°F</li>
-            <li class="list-group-item">Feels Like: 100°F</li>
-            <li class="list-group-item">Humidity: 72%</li>
-            <li class="list-group-item">Visibility: 1000m</li>
+            <li class="list-group-item">Current Temp: {{ current_weather.getTemp }}</li>
+            <li class="list-group-item">Feels Like: {{ current_weather.main.feels_like }}</li>
+            <li class="list-group-item">Humidity: {{ current_weather.main.humidity }}</li>
+            <li class="list-group-item">Visibility: {{ current_weather.visibility }}</li>
             <li class="list-group-item">Wind: 20 Mph NW</li>
         </ul>
     </p>
